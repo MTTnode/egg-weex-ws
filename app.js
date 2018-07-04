@@ -12,11 +12,16 @@ function createWs(config, app) {
         init: function (markets, fn) {
             _markets = markets;
             app.logger.info("weex-wx.initws begin=", config.url);
+            this.DoConnect();
+        },
+
+        DoConnect: function(){
             ws = new WS(config.url);
             ws.open(function () {
                 app.logger.info("weex-wx.initws end open", config.url);
                 kline = new Kline(ws, _markets);
-                return fn();
+                //return fn();
+                client.buildTodaySubscribe();
             });
         },
 
@@ -27,9 +32,18 @@ function createWs(config, app) {
             });
         },
         get0Kline: function () {
+
+            if(false == ws.IsAlive()){
+                this.DoConnect();
+            }
+            
             return kline.Kline0;
         },
         get1Kline: function () {
+            if(false == ws.IsAlive()){
+                this.DoConnect();
+            }
+
             return kline.Kline1;
         },
         getTodaySubscribe: function () {
