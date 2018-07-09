@@ -39,6 +39,7 @@
     "autod": "autod"
   },
   "files": [
+    "app",
     "app.js",
     "agent.js",
     "config",
