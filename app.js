@@ -32,18 +32,9 @@ function createWs(config, app) {
             });
         },
         get0Kline: function () {
-
-            if(false == ws.IsAlive()){
-                this.DoConnect();
-            }
-            
             return kline.Kline0;
         },
         get1Kline: function () {
-            if(false == ws.IsAlive()){
-                this.DoConnect();
-            }
-
             return kline.Kline1;
         },
         getTodaySubscribe: function () {
@@ -51,6 +42,14 @@ function createWs(config, app) {
         }, KILNE: {
             k0: 0,
             k1: 1
+        },
+        heartbeat: function(){
+            
+            if(false == ws.IsAlive()){
+                this.DoConnect();
+            }
+            
+            ws.DoPing();
         }
     }
     return client;
